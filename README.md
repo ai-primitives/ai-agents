@@ -33,12 +33,12 @@ const agent = new Agent({
   tools: ['search', 'calculate'],
   inputs: {
     query: 'string',
-    context: 'object',
+    context: 'object'
   },
   outputs: {
     result: 'string',
-    confidence: 'number',
-  },
+    confidence: 'number'
+  }
 })
 ```
 
@@ -66,24 +66,144 @@ import { Search } from 'agentic'
 
 // Define agent processing logic
 export const process = async ({ query, context }) => {
-const searchResult = await Search.execute(query)
-return {
-result: searchResult.text,
-confidence: searchResult.score
-}
+  const searchResult = await Search.execute(query)
+  return {
+    result: searchResult.text,
+    confidence: searchResult.score
+  }
 }
 
 // Define agent visualization component
 export default function AgentVisualization({ state }) {
-return (
+  return (
+    <div className='agent-container'>
+      {state === 'idle' && <IdleState />}
+      {state === 'processing' && <ProcessingState />}
+      {state === 'complete' && <CompleteState />}
+      {state === 'error' && <ErrorState />}
+    </div>
+  )
+}
+```
 
-<div className='agent-container'>
-  {state === 'idle' && <IdleState />}
-  {state === 'processing' && <ProcessingState />}
-  {state === 'complete' && <CompleteState />}
-  {state === 'error' && <ErrorState />}
-</div>
-) }
+
+### Wolfram Alpha Agent
+
+```mdx
+---
+name: WolframAgent
+tools:
+  - wolfram-alpha
+inputs:
+  - name: query
+    type: string
+outputs:
+  - name: result
+    type: object
+    properties:
+      answer: string
+      details: string
+---
+
+import { WolframAlphaClient } from '@agentic/wolfram-alpha'
+
+// Define agent processing logic
+export const process = async ({ query }) => {
+  const wolfram = new WolframAlphaClient()
+  const result = await wolfram.search(query)
+  return {
+    result: {
+      answer: result.answer,
+      details: result.details
+    }
+  }
+}
+
+// Define agent visualization component
+export default function WolframVisualization({ state, data }) {
+  return (
+    <div className='wolfram-container'>
+      {state === 'idle' && <div>Ready for computational queries</div>}
+      {state === 'processing' && <div>Computing...</div>}
+      {state === 'complete' && (
+        <div>
+          <h3>Answer: {data.result.answer}</h3>
+          <p>Details: {data.result.details}</p>
+        </div>
+      )}
+      {state === 'error' && <div>Error: {data.error}</div>}
+    </div>
+  )
+}
+```
+
+### Wikipedia Agent
+
+```mdx
+---
+name: WikipediaAgent
+tools:
+  - wikipedia-search
+  - wikipedia-summary
+inputs:
+  - name: query
+    type: string
+  - name: type
+    type: string
+    enum: [search, summary]
+outputs:
+  - name: result
+    type: object
+    properties:
+      title: string
+      content: string
+      url: string
+---
+
+import { WikipediaClient } from '@agentic/wikipedia'
+
+// Define agent processing logic
+export const process = async ({ query, type }) => {
+  const wikipedia = new WikipediaClient()
+
+  if (type === 'search') {
+    const [firstResult] = await wikipedia.search(query)
+    return {
+      result: {
+        title: firstResult.title,
+        content: firstResult.snippet,
+        url: firstResult.url
+      }
+    }
+  }
+
+  const summary = await wikipedia.getPageSummary(query)
+  return {
+    result: {
+      title: summary.title,
+      content: summary.extract,
+      url: summary.url
+    }
+  }
+}
+
+// Define agent visualization component
+export default function WikipediaVisualization({ state, data }) {
+  return (
+    <div className='wikipedia-container'>
+      {state === 'idle' && <div>Ready for Wikipedia queries</div>}
+      {state === 'processing' && <div>Searching Wikipedia...</div>}
+      {state === 'complete' && (
+        <div>
+          <h3>{data.result.title}</h3>
+          <p>{data.result.content}</p>
+          <a href={data.result.url}>Read more</a>
+        </div>
+      )}
+      {state === 'error' && <div>Error: {data.error}</div>}
+    </div>
+  )
+}
 ```
 
 ## Agent States
