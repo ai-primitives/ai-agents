@@ -1,0 +1,76 @@
+.agent-view {
+  padding: 1rem;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  background: white;
+}
+
+.agent-status {
+  padding: 1rem;
+}
+
+.agent-header h2 {
+  margin: 0 0 0.5rem 0;
+}
+
+.description {
+  color: #666;
+  margin: 0 0 1rem 0;
+}
+
+.agent-state {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.status-icon {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.spinning {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.state-idle {
+  background: #f5f5f5;
+}
+
+.state-processing {
+  background: #e3f2fd;
+}
+
+.state-complete {
+  background: #e8f5e9;
+}
+
+.state-error {
+  background: #ffebee;
+}
+
+.agent-tools {
+  margin-top: 1rem;
+}
+
+.agent-tools h3 {
+  margin: 0 0 0.5rem 0;
+}
+
+.agent-tools ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.agent-tools li {
+  padding: 0.25rem 0;
+  color: #666;
+}
