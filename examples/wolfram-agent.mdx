@@ -1,0 +1,77 @@
+---
+name: Wolfram Alpha Agent
+description: Computational and scientific query agent
+tools: ['@agentic/wolfram-alpha']
+inputs:
+  query: string
+outputs:
+  result:
+    answer: string
+    details: string
+---
+
+import { WolframAlphaClient } from '@agentic/wolfram-alpha'
+
+# Wolfram Alpha Computational Agent
+
+This agent handles computational and scientific queries using the Wolfram Alpha API.
+
+## Implementation
+
+```typescript
+export const computeAnswer = async ({ query }) => {
+  const wolfram = new WolframAlphaClient()
+  const result = await wolfram.search(query)
+
+  return {
+    result: {
+      answer: result.answer,
+      details: result.details
+    }
+  }
+}
+```
+
+## Visualization
+
+```jsx
+export const ResultCard = ({ result }) => (
+  <div className="result-card">
+    <h2>Computation Result</h2>
+    <div className="answer">{result.answer}</div>
+    <div className="details">{result.details}</div>
+  </div>
+)
+```
+
+## Usage Example
+
+```typescript
+const agent = new Agent(import('./wolfram-agent.mdx'))
+const result = await agent.execute({
+  query: 'What is the derivative of x^2?'
+})
+console.log(result.result.answer) // "2x"
+console.log(result.result.details) // "The derivative of x^2 with respect to x is 2x"
+```
+
+## Styling
+
+```css
+.result-card {
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background: white;
+}
+
+.answer {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.details {
+  color: #4a5568;
+  line-height: 1.5;
+}

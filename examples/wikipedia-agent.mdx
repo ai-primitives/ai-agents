@@ -1,0 +1,112 @@
+---
+name: Wikipedia Agent
+description: Wikipedia search and summary agent
+tools: ['@agentic/wikipedia']
+inputs:
+  query: string
+  type: 'search' | 'summary'
+outputs:
+  result:
+    title: string
+    content: string
+    url: string
+---
+
+import { WikipediaClient } from '@agentic/wikipedia'
+
+# Wikipedia Search Agent
+
+This agent provides Wikipedia search and article summaries.
+
+## Implementation
+
+```typescript
+export const searchWikipedia = async ({ query, type }) => {
+  const wikipedia = new WikipediaClient()
+
+  if (type === 'search') {
+    const results = await wikipedia.search({ query })
+    return {
+      result: {
+        title: results[0].title,
+        content: results[0].snippet,
+        url: results[0].url
+      }
+    }
+  }
+
+  const summary = await wikipedia.getPageSummary({ title: query })
+  return {
+    result: {
+      title: summary.title,
+      content: summary.extract,
+      url: summary.url
+    }
+  }
+}
+```
+
+## Visualization
+
+```jsx
+export const WikiCard = ({ result }) => (
+  <div className="wiki-card">
+    <h2>{result.title}</h2>
+    <p>{result.content}</p>
+    <a href={result.url} target="_blank" rel="noopener noreferrer">
+      Read more
+    </a>
+  </div>
+)
+```
+
+## Usage Example
+
+```typescript
+const agent = new Agent(import('./wikipedia-agent.mdx'))
+
+// Search example
+const searchResult = await agent.execute({
+  query: 'artificial intelligence',
+  type: 'search'
+})
+
+// Summary example
+const summaryResult = await agent.execute({
+  query: 'Artificial_intelligence',
+  type: 'summary'
+})
+```
+
+## Styling
+
+```css
+.wiki-card {
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background: white;
+  max-width: 48rem;
+}
+
+.wiki-card h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.wiki-card p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: #4a5568;
+}
+
+.wiki-card a {
+  color: #4299e1;
+  text-decoration: none;
+}
+
+.wiki-card a:hover {
+  text-decoration: underline;
+}
