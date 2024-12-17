@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { Agent } from '../agent'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { WikipediaClient } from '@agentic/wikipedia'
 
 vi.mock('@agentic/wikipedia', () => ({
