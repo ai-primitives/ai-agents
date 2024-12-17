@@ -60,6 +60,8 @@
   "dependencies": {
     "@agentic/core": "^7.2.0",
     "@agentic/stdlib": "^7.2.0",
+    "@agentic/wikipedia": "^7.2.0",
+    "@agentic/wolfram-alpha": "^7.2.0",
     "mdxld": "^0.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

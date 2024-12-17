@@ -5,17 +5,23 @@ import { WikipediaClient } from '@agentic/wikipedia'
 vi.mock('@agentic/wikipedia', () => ({
   WikipediaClient: vi.fn().mockImplementation(() => ({
     search: vi.fn().mockImplementation(() => {
-      return Promise.resolve([{
-        title: 'Test Article',
-        snippet: 'Test content preview',
-        url: 'https://wikipedia.org/wiki/Test_Article'
-      }])
+      return Promise.resolve({
+        pages: [{
+          title: 'Test Article',
+          excerpt: 'Test content preview',
+          key: 'Test_Article'
+        }]
+      })
     }),
     getPageSummary: vi.fn().mockImplementation(() => {
       return Promise.resolve({
         title: 'Test Article',
         extract: 'Full article content',
-        url: 'https://wikipedia.org/wiki/Test_Article'
+        content_urls: {
+          desktop: {
+            page: 'https://wikipedia.org/wiki/Test_Article'
+          }
+        }
       })
     })
   }))
