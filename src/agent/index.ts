@@ -55,7 +55,7 @@ export class Agent {
           async (params) => {
             if (this.config.tools.includes('wolfram-alpha')) {
               const wolfram = new WolframAlphaClient()
-              const result = await wolfram.search(params.query as string)
+              const result = await wolfram.ask(params.query as string)
               return { result }
             }
 
