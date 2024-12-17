@@ -1,17 +1,13 @@
 {
-  "name": "package-template",
+  "name": "ai-agents",
   "version": "0.1.0",
-  "description": "A modern TypeScript package template with Vitest, Prettier, ESLint, and semantic versioning",
+  "description": "TypeScript library for building AI agents with MDX-based definitions and React visualizations",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "bin": {
-    "package-template": "bin/cli.js"
-  },
   "files": [
-    "dist",
-    "bin"
+    "dist"
   ],
   "scripts": {
     "build": "tsc",
@@ -23,19 +19,20 @@
   },
   "keywords": [
     "typescript",
-    "template",
-    "package",
-    "cli"
+    "ai",
+    "agents",
+    "mdx",
+    "react"
   ],
   "author": "AI Primitives",
   "license": "MIT",
   "homepage": "https://mdx.org.ai",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ai-primitives/package-template.git"
+    "url": "git+https://github.com/ai-primitives/ai-agents.git"
   },
   "bugs": {
-    "url": "https://github.com/ai-primitives/package-template/issues"
+    "url": "https://github.com/ai-primitives/ai-agents/issues"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -43,13 +40,29 @@
     "@semantic-release/github": "^11.0.1",
     "@semantic-release/npm": "^12.0.1",
     "@semantic-release/release-notes-generator": "^14.0.1",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
     "@types/node": "^22.10.2",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.17.0",
+    "jsdom": "^25.0.1",
     "prettier": "^3.4.2",
     "semantic-release": "^24.2.0",
     "typescript": "^5.7.2",
+    "vite": "^6.0.3",
     "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "@agentic/core": "^7.2.0",
+    "@agentic/stdlib": "^7.2.0",
+    "mdxld": "^0.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.1"
   }
 }
