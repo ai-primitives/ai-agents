@@ -1,0 +1,58 @@
+---
+name: Weather Agent
+description: Provides weather forecasts
+tools: ['@agentic/weather']
+inputs:
+  location: string
+  date: string
+outputs:
+  forecast:
+    temperature: number
+    conditions: string
+---
+
+import { WeatherTool } from '@agentic/weather'
+
+# Weather Forecast Agent
+
+This agent provides weather forecasts using the @agentic/weather tool.
+
+## Implementation
+
+```typescript
+export const getWeatherForecast = async ({ location, date }) => {
+  const weather = new WeatherTool()
+  const forecast = await weather.getForecast(location, date)
+
+  return {
+    forecast: {
+      temperature: forecast.temperature,
+      conditions: forecast.conditions
+    }
+  }
+}
+```
+
+## Visualization
+
+The agent displays the current weather conditions and temperature in a card format:
+
+```jsx
+export const WeatherCard = ({ forecast }) => (
+  <div className="weather-card">
+    <h2>Weather Forecast</h2>
+    <div className="temperature">{forecast.temperature}°C</div>
+    <div className="conditions">{forecast.conditions}</div>
+  </div>
+)
+```
+
+## Usage Example
+
+```typescript
+const agent = new Agent(import('./weather-agent.mdx'))
+const forecast = await agent.execute({
+  location: 'San Francisco, CA',
+  date: '2024-01-20'
+})
+```

@@ -76,14 +76,14 @@ confidence: searchResult.score
 // Define agent visualization component
 export default function AgentVisualization({ state }) {
 return (
+
 <div className='agent-container'>
-{state === 'idle' && <IdleState />}
-{state === 'processing' && <ProcessingState />}
-{state === 'complete' && <CompleteState />}
-{state === 'error' && <ErrorState />}
+  {state === 'idle' && <IdleState />}
+  {state === 'processing' && <ProcessingState />}
+  {state === 'complete' && <CompleteState />}
+  {state === 'error' && <ErrorState />}
 </div>
-)
-}
+) }
 ```
 
 ## Agent States

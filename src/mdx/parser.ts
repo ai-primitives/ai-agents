@@ -19,7 +19,7 @@ export async function parseAgentMDX(content: string) {
 
     return {
       config,
-      content: mdx.content
+      content: mdx.content,
     }
   } catch (error) {
     if (error instanceof Error) {
