@@ -33,12 +33,12 @@ const agent = new Agent({
   tools: ['search', 'calculate'],
   inputs: {
     query: 'string',
-    context: 'object'
+    context: 'object',
   },
   outputs: {
     result: 'string',
-    confidence: 'number'
-  }
+    confidence: 'number',
+  },
 })
 ```
 
@@ -66,23 +66,23 @@ import { Search } from 'agentic'
 
 // Define agent processing logic
 export const process = async ({ query, context }) => {
-  const searchResult = await Search.execute(query)
-  return {
-    result: searchResult.text,
-    confidence: searchResult.score
-  }
+const searchResult = await Search.execute(query)
+return {
+result: searchResult.text,
+confidence: searchResult.score
+}
 }
 
 // Define agent visualization component
 export default function AgentVisualization({ state }) {
-  return (
-    <div className='agent-container'>
-      {state === 'idle' && <IdleState />}
-      {state === 'processing' && <ProcessingState />}
-      {state === 'complete' && <CompleteState />}
-      {state === 'error' && <ErrorState />}
-    </div>
-  )
+return (
+<div className='agent-container'>
+{state === 'idle' && <IdleState />}
+{state === 'processing' && <ProcessingState />}
+{state === 'complete' && <CompleteState />}
+{state === 'error' && <ErrorState />}
+</div>
+)
 }
 ```
 
